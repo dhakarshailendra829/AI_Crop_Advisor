@@ -1,22 +1,15 @@
-# modules/news_fetcher.py
 import os
 from pathlib import Path
 import streamlit as st
 import pandas as pd
 import base64
 
-# =========================
-# 📂 Directories
-# =========================
 UPLOAD_DIR = Path("uploaded_papers")
-UPLOAD_DIR.mkdir(parents=True, exist_ok=True)  # ensure folder exists
+UPLOAD_DIR.mkdir(parents=True, exist_ok=True)  
 
 METADATA_FILE = Path("data/research_papers.csv")
-METADATA_FILE.parent.mkdir(parents=True, exist_ok=True)  # ensure data folder exists
+METADATA_FILE.parent.mkdir(parents=True, exist_ok=True)  
 
-# =========================
-# 💾 Save uploaded PDF
-# =========================
 def save_uploaded_file(uploaded_file):
     file_path = UPLOAD_DIR / uploaded_file.name
     file_path.parent.mkdir(parents=True, exist_ok=True)
@@ -24,9 +17,6 @@ def save_uploaded_file(uploaded_file):
         f.write(uploaded_file.getbuffer())
     return file_path
 
-# =========================
-# 📝 Add metadata (title, topic, uploader, filename)
-# =========================
 def add_paper_metadata(title, topic, uploader_name, filename):
     try:
         df = pd.read_csv(METADATA_FILE)
@@ -37,21 +27,15 @@ def add_paper_metadata(title, topic, uploader_name, filename):
     df = pd.concat([df, new_entry], ignore_index=True)
     df.to_csv(METADATA_FILE, index=False)
 
-# =========================
-# 📚 List uploaded papers
-# =========================
 def list_uploaded_papers():
     if not METADATA_FILE.exists():
         return []
     df = pd.read_csv(METADATA_FILE)
     return df.to_dict(orient="records")
 
-# =========================
-# 📄 Embed PDF in page
-# =========================
 def embed_pdf(file_path: Path):
     if not file_path.exists():
-        st.error(f"❌ File not found: {file_path.name}")
+        st.error(f"File not found: {file_path.name}")
         return
     with open(str(file_path), "rb") as f:
         base64_pdf = base64.b64encode(f.read()).decode('utf-8')
@@ -60,35 +44,26 @@ def embed_pdf(file_path: Path):
         unsafe_allow_html=True
     )
 
-# =========================
-# 📚 Show upload form & papers
-# =========================
 def show_news_and_research():
     st.subheader("📚 Agri Research Paper Portal")
     st.write("Upload and read research papers directly here. No external links required.")
 
-    # =========================
-    # 📝 Upload Form
-    # =========================
     with st.expander("➕ Add New Research Paper"):
         uploader_name = st.text_input("👤 Your Name")
-        title = st.text_input("📌 Paper Title")
-        topic = st.text_input("🏷 Topic")
-        uploaded_file = st.file_uploader("📄 Upload PDF", type=["pdf"])
+        title = st.text_input("Paper Title")
+        topic = st.text_input("Topic")
+        uploaded_file = st.file_uploader("Upload PDF", type=["pdf"])
 
-        if st.button("📥 Save Paper"):
+        if st.button("Save Paper"):
             if uploader_name and title and topic and uploaded_file:
                 file_path = save_uploaded_file(uploaded_file)
                 add_paper_metadata(title, topic, uploader_name, uploaded_file.name)
-                st.success(f"✅ '{title}' by {uploader_name} added successfully!")
+                st.success(f"'{title}' by {uploader_name} added successfully!")
             else:
-                st.warning("⚠️ Please fill all fields and upload a PDF.")
+                st.warning("Please fill all fields and upload a PDF.")
 
-    # =========================
-    # 📖 Display All Papers
-    # =========================
     st.markdown("---")
-    st.markdown("### 📖 Available Research Papers")
+    st.markdown("### Available Research Papers")
 
     papers = list_uploaded_papers()
     if not papers:
