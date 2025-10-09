@@ -11,6 +11,8 @@ from modules.crop_mapping import get_crop_info
 from PIL import Image
 import modules.calandar_advisor as calandar_advisor
 import modules.news_fetcher as news_fetcher
+from modules import land_suitability       # ✅ NEW
+from modules import ai_chatbot   
 
 st.set_page_config(
     page_title="🌾 AI Crop & Market Advisor",
@@ -44,7 +46,7 @@ Empowering Farmers with AI • Weather • Market • Community
 </p>
 """, unsafe_allow_html=True)
 
-tab_home, tab1, tab2, tab3, tab4, tab_about, tab5, tab6 = st.tabs([
+tab_home, tab1, tab2, tab3, tab4, tab_about, tab5, tab6, tab7, tab8 = st.tabs([
     "🏠 Home / Dashboard",
     "🌱 Crop Recommendation",
     "🌤 Weather & Forecast",
@@ -52,7 +54,9 @@ tab_home, tab1, tab2, tab3, tab4, tab_about, tab5, tab6 = st.tabs([
     "👨‍🌾 Community Posts",
     "📝 About / Contact / Help",
     "🗓 Crop Calendar & Alerts",
-    "📰 Agri News & Research"
+    "📰 Agri News & Research",
+    "🌍 Land Suitability",
+    "🤖 AI Chatbot"
 ])
 
 with tab_home:
@@ -276,3 +280,9 @@ with tab5:
 
 with tab6:
     news_fetcher.show_news_and_research()
+    
+with tab7:
+    land_suitability.run()  
+       
+with tab8:
+    ai_chatbot.run()
