@@ -11,7 +11,7 @@ from modules.crop_mapping import get_crop_info
 from PIL import Image
 import modules.calandar_advisor as calandar_advisor
 import modules.news_fetcher as news_fetcher
-from modules import land_suitability       # ✅ NEW
+from modules import land_suitability       
 from modules import ai_chatbot   
 
 st.set_page_config(
@@ -47,20 +47,20 @@ Empowering Farmers with AI • Weather • Market • Community
 """, unsafe_allow_html=True)
 
 tab_home, tab1, tab2, tab3, tab4, tab_about, tab5, tab6, tab7, tab8 = st.tabs([
-    "🏠 Home / Dashboard",
-    "🌱 Crop Recommendation",
-    "🌤 Weather & Forecast",
-    "💰 Market Price Insights",
-    "👨‍🌾 Community Posts",
-    "📝 About / Contact / Help",
-    "🗓 Crop Calendar & Alerts",
-    "📰 Agri News & Research",
-    "🌍 Land Suitability",
-    "🤖 AI Chatbot"
+    "Home / Dashboard",
+    "Crop Recommendation",
+    "Weather & Forecast",
+    "Market Price Insights",
+    "Community Posts",
+    "About / Contact / Help",
+    "Crop Calendar & Alerts",
+    "Agri News & Research",
+    "Land Suitability",
+    "AI Chatbot"
 ])
 
 with tab_home:
-    st.markdown('<div class="section-title">🏠 Home Dashboard</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-title">Home Dashboard</div>', unsafe_allow_html=True)
 
     col1, col2, col3 = st.columns(3)
     try:
@@ -73,9 +73,9 @@ with tab_home:
     except Exception:
         last_update = "N/A"
 
-    col1.metric("🌾 Total Crops", total_crops)
+    col1.metric("Total Crops", total_crops)
     col2.metric("Active States", active_states)
-    col3.metric("🕒 Last Update", last_update)
+    col3.metric("Last Update", last_update)
 
     st.markdown("### Top 5 Most Traded Crops")
     if not market_df.empty:
@@ -85,7 +85,7 @@ with tab_home:
         st.warning("Market data not available.")
 
 with tab1:
-    st.markdown('<div class="section-title">🌾 Recommend Best Crop for Your Soil & Weather</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-title">Recommend Best Crop for Your Soil & Weather</div>', unsafe_allow_html=True)
     col1, col2, col3 = st.columns(3)
     with col1:
         N = st.number_input("Nitrogen (N)", min_value=0, max_value=200, value=50)
@@ -98,14 +98,14 @@ with tab1:
         ph = st.number_input("Soil pH", min_value=0.0, max_value=14.0, value=6.5)
         rainfall = st.number_input("Rainfall (mm)", value=100.0)
 
-    if st.button("🌾 Recommend Crop", type="primary"):
+    if st.button("Recommend Crop", type="primary"):
         features = np.array([[N, P, K, temperature, humidity, ph, rainfall]])
         try:
             scaled_features = scaler.transform(features)
             crop_label = crop_model.predict(scaled_features)[0]
             crop_info = get_crop_info(crop_label)
             st.success(f"Recommended Crop: **{crop_info['name']}**")
-            st.info(f"📖 About {crop_info['name']}: {crop_info['description']}")
+            st.info(f"About {crop_info['name']}: {crop_info['description']}")
         except ValueError as e:
             st.error(f"Error: {e}")
 
@@ -114,7 +114,7 @@ st.markdown('<div class="section-title">Seasonal Crop Guide</div>', unsafe_allow
 st.markdown("""
 <div style="border-radius:12px; overflow:hidden; box-shadow: 3px 3px 10px rgba(0,0,0,0.15); margin-bottom:15px;">
     <div style="background-color:#ff3300; color:white; padding:10px; font-weight:bold; font-size:18px;">
-        ☀️ Summer Crops
+         Summer Crops
     </div>
     <div style="background-color:#fff5f5; padding:15px; color:#333;">
         <ul>
@@ -131,7 +131,7 @@ st.markdown("""
 st.markdown("""
 <div style="border-radius:12px; overflow:hidden; box-shadow: 3px 3px 10px rgba(0,0,0,0.15); margin-bottom:15px;">
     <div style="background-color:#0047b3; color:white; padding:10px; font-weight:bold; font-size:18px;">
-        ❄️ Winter Crops
+        Winter Crops
     </div>
     <div style="background-color:#e6f0ff; padding:15px; color:#333;">
         <ul>
@@ -148,7 +148,7 @@ st.markdown("""
 st.markdown("""
 <div style="border-radius:12px; overflow:hidden; box-shadow: 3px 3px 10px rgba(0,0,0,0.15); margin-bottom:15px;">
     <div style="background-color:#008000; color:white; padding:10px; font-weight:bold; font-size:18px;">
-        🌧 Rainy Season Crops
+        Rainy Season Crops
     </div>
     <div style="background-color:#f0fff0; padding:15px; color:#333;">
         <ul>
@@ -163,7 +163,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 with tab2:
-    st.markdown('<div class="section-title">🌤 Weather & Forecast</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-title"> Weather & Forecast</div>', unsafe_allow_html=True)
     col1, col2 = st.columns(2)
     with col1:
         location = st.text_input("Enter Location", "Delhi")
@@ -179,7 +179,7 @@ with tab2:
             st.warning("No forecast available for this location/date.")
 
 with tab3:
-    st.markdown('<div class="section-title">💰 Check Real-time Market Prices</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-title">Check Real-time Market Prices</div>', unsafe_allow_html=True)
     market_df.columns = market_df.columns.str.strip().str.title()
     crop_name = st.text_input("Enter Crop Name", "Wheat")
     state_name = st.selectbox("Select State", sorted(market_df['State'].unique()))
@@ -192,7 +192,7 @@ with tab3:
             st.warning(f"No price data found for **{crop_name}** in **{state_name}**.")
 
 with tab4:
-    st.markdown('<div class="section-title">👨‍🌾 Community Forum</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-title">Community Forum</div>', unsafe_allow_html=True)
     posts_file = "community_posts.csv"
     try:
         posts_df = pd.read_csv(posts_file)
@@ -204,10 +204,10 @@ with tab4:
         posts_df = pd.DataFrame(columns=["Name", "Location", "Message", "Date", "Replies"])
 
     with st.form("community_form"):
-        name = st.text_input("👤 Your Name")
-        location = st.text_input("📍 Your Location")
-        message = st.text_area("💬 Share Your Experience or Ask a Question")
-        submitted = st.form_submit_button("📨 Post")
+        name = st.text_input("Your Name")
+        location = st.text_input("Your Location")
+        message = st.text_area("Share Your Experience or Ask a Question")
+        submitted = st.form_submit_button("Post")
         if submitted and name and message:
             new_post = pd.DataFrame([[name, location, message, datetime.now().strftime("%Y-%m-%d %H:%M"), ""]],
                                     columns=["Name", "Location", "Message", "Date", "Replies"])
@@ -215,18 +215,18 @@ with tab4:
             posts_df.to_csv(posts_file, index=False)
             st.success("Post shared successfully!")
 
-    st.subheader("📰 Recent Posts")
+    st.subheader("Recent Posts")
     for idx, row in posts_df[::-1].iterrows():
         st.markdown(f"""
         <div class="post-card">
             <strong>{row['Name']}</strong> from <em>{row['Location']}</em><br>
             <span class="message">{row['Message']}</span><br>
-            <small>🕒 {row['Date']}</small>
+            <small>{row['Date']}</small>
         </div>
         """, unsafe_allow_html=True)
 
         if row['Replies']:
-            st.markdown(f"💬 Replies: {row['Replies']}")
+            st.markdown(f"Replies: {row['Replies']}")
 
         reply_text = st.text_area(f"Reply to {row['Name']}", key=f"reply_{idx}")
         if st.button(f"Submit Reply to {idx}"):
@@ -237,20 +237,20 @@ with tab4:
             st.success("Reply added successfully!")
 
 with tab_about:
-    st.markdown('<div class="section-title">ℹ️ About the Platform</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-title">About the Platform</div>', unsafe_allow_html=True)
     st.write("""
-    Welcome to **🌾 AI Crop & Market Advisor** — a smart platform designed to help farmers and agri-entrepreneurs make better decisions using **AI, weather data, and market insights**.
+    Welcome to **AI Crop & Market Advisor** — a smart platform designed to help farmers and agri-entrepreneurs make better decisions using **AI, weather data, and market insights**.
 
     **Key Features:**
-    - 🌱 Crop Recommendation based on soil & weather  
-    - 🌤 Weather Forecast for better planning  
-    - 💰 Market Price Insights to help get better profits  
-    - 👨‍🌾 Community Forum for sharing knowledge
+    - Crop Recommendation based on soil & weather  
+    - Weather Forecast for better planning  
+    - Market Price Insights to help get better profits  
+    - Community Forum for sharing knowledge
 
     **Developed by:** Shailendra Dhakad  
     """)
 
-    st.markdown('<div class="section-title">📞 Contact / Support</div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-title">Contact / Support</div>', unsafe_allow_html=True)
     contact_file = "contact_messages.csv"
     try:
         contact_df = pd.read_csv(contact_file)
@@ -261,7 +261,7 @@ with tab_about:
         name = st.text_input("Your Name")
         email = st.text_input("Email")
         message = st.text_area("Your Message")
-        submitted = st.form_submit_button("📨 Send Message")
+        submitted = st.form_submit_button("Send Message")
         if submitted:
             if name and email and message:
                 new_contact = pd.DataFrame([[name, email, message, datetime.now().strftime("%Y-%m-%d %H:%M:%S")]],
@@ -273,7 +273,7 @@ with tab_about:
                 st.warning("Please fill out all fields before submitting.")
 
     if not contact_df.empty:
-        st.markdown("### 📋 Recent Contact Messages")
+        st.markdown("###Recent Contact Messages")
         st.dataframe(contact_df[::-1])
 with tab5:
     calandar_advisor.show_calendar_and_alert()
