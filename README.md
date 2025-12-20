@@ -2,9 +2,16 @@
   <b>🌱 AI Crop & Market Advisor</b><br/>
   <img src="images/Crop.png" width="120" alt="AI Crop Advisor Logo" /><br/>
   <b>AI‑Driven Crop Recommendation, Market Intelligence & Decision‑Support Platform</b><br/>
-  <i>Machine Learning • Smart Agriculture • Data‑Driven Farming Decisions</i>
 </p>
-
+<p align="center">
+  <img src="https://img.shields.io/badge/Artificial%20Intelligence-AI-green" />
+  <img src="https://img.shields.io/badge/Machine%20Learning-Models-brightgreen" />
+  <img src="https://img.shields.io/badge/Deep%20Learning-Neural%20Networks-blueviolet" />
+  <img src="https://img.shields.io/badge/Smart-Agriculture-yellowgreen" />
+  <img src="https://img.shields.io/badge/Precision-Farming-success" />
+  <img src="https://img.shields.io/badge/Predictive-Analytics-orange" />
+  <img src="https://img.shields.io/badge/Data--Driven-Decisions-blue" />
+</p>
 <p align="center">
   <a href="#-project-vision">Vision</a> •
   <a href="#-problem-context">Problem</a> •
